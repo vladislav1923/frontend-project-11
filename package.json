@@ -1,0 +1,16 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "[![Actions Status](https://github.com/vladislav1923/frontend-project-11/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/vladislav1923/frontend-project-11/actions)",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.6.0",
+    "eslint": "^9.6.0",
+    "globals": "^15.6.0"
+  }
+}
