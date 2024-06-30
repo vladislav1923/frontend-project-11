@@ -5,7 +5,15 @@
         <title>Webpack App</title>
     </head>
     <body>
-        <h1>Hello world!</h1>
-        <h2>Tip: Check your console</h2>
+        <main class="container p-4">
+            <form>
+                <div class="mb-3">
+                    <label for="rss" class="form-label">Add RSS feed</label>
+                    <input type="text" class="form-control" id="rss" aria-describedby="rssHelp">
+                    <p id="rssHelp" class="form-text">RSS feed will be added to your list.</p>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </main>
     </body>
 </html>
