@@ -1,16 +1,32 @@
 {
-  "name": "@hexlet/code",
+  "name": "my-webpack-project",
   "version": "1.0.0",
-  "description": "[![Actions Status](https://github.com/vladislav1923/frontend-project-11/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/vladislav1923/frontend-project-11/actions)",
+  "description": "My webpack project",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint"
+    "lint": "eslint",
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch",
+    "serve": "webpack serve"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@eslint/js": "^9.6.0",
+    "@webpack-cli/generators": "^3.0.7",
+    "css-loader": "^7.1.2",
     "eslint": "^9.6.0",
-    "globals": "^15.6.0"
+    "globals": "^15.6.0",
+    "html-webpack-plugin": "^5.6.0",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.92.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4",
+    "workbox-webpack-plugin": "^7.1.0"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3"
   }
 }
