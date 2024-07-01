@@ -1,6 +1,9 @@
 class Controller {
-    init(view, state) {
+    init(view) {
         this.view = view;
+    }
+
+    setAddRSSFormHandlers(state) {
         this.view.addRSSInput.addEventListener('input', (event) => {
             state.addRSSForm.value = event.target.value;
         });

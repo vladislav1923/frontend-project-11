@@ -2,30 +2,30 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>RSS Aggregator</title>
+        <title></title>
     </head>
     <body class="d-flex flex-column min-vh-100">
         <main class="flex-grow-1">
-            <section class="container-fluid bg-dark p-5">
+            <section id="add-rss-section" class="container-fluid bg-dark p-5">
                 <div class="row">
                     <div class="col-md-10 col-lg-8 mx-auto text-white">
-                        <h1 class="display-3 mb-0">RSS агрегатор</h1>
-                        <p class="lead">Начните читать RSS сегодня! Это легко, это красиво.</p>
-                        <form id="url-form" action="" class="rss-form text-body">
+                        <h1 class="display-3 mb-0"></h1>
+                        <p class="lead"></p>
+                        <form id="add-rss-form" action="" class="rss-form text-body">
                             <div class="row">
                                 <div class="col">
                                     <div class="form-floating">
                                         <input
-                                                id="url-input"
+                                                id="add-rss-input"
                                                 autofocus=""
                                                 required=""
                                                 name="url"
                                                 aria-label="url"
                                                 class="form-control w-100"
-                                                placeholder="ссылка RSS"
+                                                placeholder=""
                                                 autocomplete="off"
                                         >
-                                        <label for="url-input">Ссылка RSS</label>
+                                        <label for="add-rss-input"></label>
                                     </div>
                                 </div>
                                 <div class="col-auto">
@@ -33,13 +33,12 @@
                                             type="submit"
                                             aria-label="add"
                                             class="h-100 btn btn-lg btn-primary px-sm-5">
-                                        Добавить
                                     </button>
                                 </div>
                             </div>
                         </form>
-                        <p class="mt-2 mb-0 text-secondary">Пример: https://lorem-rss.hexlet.app/feed</p>
-                        <p id="url-message" class="feedback m-0 position-absolute small"></p>
+                        <p id="add-rss-example" class="mt-2 mb-0 text-secondary"></p>
+                        <p id="add-rss-message" class="feedback m-0 position-absolute small"></p>
                     </div>
                 </div>
             </section>

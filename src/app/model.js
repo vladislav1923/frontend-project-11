@@ -1,9 +1,12 @@
 import onChange from "on-change";
 import View from "./view";
-import urlValidator from './validators/url';
-import duplicateFeedValidator from "./validators/duplicate-feed";
+import i18n from 'i18next';
+import resources from './locales';
+import { urlValidator, duplicateFeedValidator } from "./validators";
+
 
 const state = {
+    lng: 'ru',
     feeds: [],
     addRSSForm: {
         status: 'no-touched', // 'no-touched' | 'successful' | 'failed'
@@ -11,8 +14,13 @@ const state = {
     }
 }
 
-export default function() {
+export default async function() {
     const view = new View();
+    const i18nextInstance = i18n.createInstance();
+    await i18nextInstance.init({
+        lng: state.lng,
+        resources,
+    });
 
     const changeHandler = (path, value) => {
         switch (path) {
@@ -37,5 +45,7 @@ export default function() {
         }
     }
 
-    view.init(onChange(state, changeHandler));
+    view.init();
+    view.initAddRSSForm(onChange(state, changeHandler));
+    await view.renderTexts(i18nextInstance);
 }
