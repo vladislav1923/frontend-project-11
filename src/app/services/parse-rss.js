@@ -1,17 +1,19 @@
 import { v4 } from 'uuid';
 
 export default function parseRss(dom) {
+    const feedId = v4();
     const result = {
         feed: {
-            feedId: v4(),
+            feedId,
             title: dom.querySelector('title').textContent,
             desc: dom.querySelector('description').textContent,
         },
-        items: []
+        posts: []
     }
 
-    result.items = Array.from(dom.querySelectorAll('item')).map((item) => {
+    result.posts = Array.from(dom.querySelectorAll('item')).map((item) => {
         return {
+            feedId,
             title: item.querySelector('title').textContent,
             desc: item.querySelector('description').textContent,
             link: item.querySelector('link').textContent,

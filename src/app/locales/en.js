@@ -15,6 +15,11 @@ export default {
             fetchingError: 'An unexpected error occurred while fetching posts',
             parsingError: 'Resource doesn\'t includes valid RSS',
             successMessage: 'RSS has been uploaded successfully',
+        },
+        feeds: {
+            feedsTitle: 'Feeds',
+            postsTitle: 'Posts',
+            postBtnText: 'Browse',
         }
     },
 };

@@ -15,6 +15,11 @@ export default {
             fetchingError: 'Не удалось загрузить ленту',
             parsingError: 'Ресурс не содержит валидный RSS',
             successMessage: 'RSS успешно загружен',
+        },
+        feeds: {
+            feedsTitle: 'Фиды',
+            postsTitle: 'Посты',
+            postBtnText: 'Просмотр',
         }
     },
 };

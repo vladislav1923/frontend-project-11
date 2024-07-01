@@ -9,6 +9,7 @@ import { fetchPosts, parseXML, parseRSS } from "./services";
 const state = {
     lng: 'ru',
     feeds: [],
+    posts: [],
     addRSSForm: {
         status: 'no-touched', // 'no-touched' | 'successful' | 'failed'
         value: '',
@@ -47,14 +48,16 @@ export default async function() {
                             await i18nextInstance.t('addRSSForm.parsingError')
                         ))
                         .then(async (elements) => {
-                            console.log( parseRSS(elements))
-                            state.feeds = [...state.feeds, { url: state.addRSSForm.value }];
+                            const parsed = parseRSS(elements);
+                            state.feeds = [...state.feeds, { ...parsed.feed, url: state.addRSSForm.value }];
+                            state.posts = [...state.posts, ...parsed.posts];
                             state.addRSSForm.status = 'successful';
                             state.addRSSForm.value = '';
                             view.setAddRSSFormMessage(
                                 state,
                                 await i18nextInstance.t('addRSSForm.successMessage'),
                             );
+                            await view.renderFeeds(state, i18nextInstance);
                         })
                         .catch((message) => {
                             state.addRSSForm.status = 'failed';
