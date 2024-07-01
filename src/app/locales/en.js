@@ -10,6 +10,9 @@ export default {
             label: 'RSS link',
             btnText: 'Add',
             example: 'Example: https://lorem-rss.hexlet.app/feed',
+            urlError: 'Invalid URL',
+            duplicateFeedError: 'RSS already exists',
+            successMessage: 'RSS has been uploaded successfully',
         }
     },
 };

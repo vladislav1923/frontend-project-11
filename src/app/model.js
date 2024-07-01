@@ -22,19 +22,29 @@ export default async function() {
         resources,
     });
 
-    const changeHandler = (path, value) => {
+    const changeHandler = async (path, value) => {
         switch (path) {
             case 'addRSSForm.status': {
                 if (value === 'submitted') {
                     Promise.all([
-                        urlValidator(state.addRSSForm.value),
-                        duplicateFeedValidator(state.feeds, state.addRSSForm.value)
+                        urlValidator(
+                            state.addRSSForm.value,
+                            await i18nextInstance.t('addRSSForm.urlError'),
+                        ),
+                        duplicateFeedValidator(
+                            state.feeds,
+                            state.addRSSForm.value,
+                            await i18nextInstance.t('addRSSForm.duplicateFeedError'),
+                        )
                     ])
-                        .then(() => {
+                        .then(async () => {
                             state.feeds = [...state.feeds, { url: state.addRSSForm.value }];
                             state.addRSSForm.status = 'successful';
                             state.addRSSForm.value = '';
-                            view.setAddRSSFormMessage(state, 'RSS успешно загружен');
+                            view.setAddRSSFormMessage(
+                                state,
+                                await i18nextInstance.t('addRSSForm.successMessage'),
+                            );
                         })
                         .catch((message) => {
                             state.addRSSForm.status = 'failed';

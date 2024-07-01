@@ -10,6 +10,9 @@ export default {
             label: 'Ссылка RSS',
             btnText: 'Добавить',
             example: 'Пример: https://lorem-rss.hexlet.app/feed',
+            urlError: 'Ссылка должна быть валидным URL',
+            duplicateFeedError: 'RSS уже существует',
+            successMessage: 'RSS успешно загружен',
         }
     },
 };
