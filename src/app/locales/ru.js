@@ -12,6 +12,8 @@ export default {
             example: 'Пример: https://lorem-rss.hexlet.app/feed',
             urlError: 'Ссылка должна быть валидным URL',
             duplicateFeedError: 'RSS уже существует',
+            fetchingError: 'Не удалось загрузить ленту',
+            parsingError: 'Ресурс не содержит валидный RSS',
             successMessage: 'RSS успешно загружен',
         }
     },

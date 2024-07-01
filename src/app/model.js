@@ -3,6 +3,7 @@ import View from "./view";
 import i18n from 'i18next';
 import resources from './locales';
 import { urlValidator, duplicateFeedValidator } from "./validators";
+import { fetchPosts, parseXML, parseRSS } from "./services";
 
 
 const state = {
@@ -37,7 +38,16 @@ export default async function() {
                             await i18nextInstance.t('addRSSForm.duplicateFeedError'),
                         )
                     ])
-                        .then(async () => {
+                        .then(async () => fetchPosts(
+                            state.addRSSForm.value,
+                            await i18nextInstance.t('addRSSForm.fetchingError')
+                        ))
+                        .then(async (response) => parseXML(
+                            response.data.contents,
+                            await i18nextInstance.t('addRSSForm.parsingError')
+                        ))
+                        .then(async (elements) => {
+                            console.log( parseRSS(elements))
                             state.feeds = [...state.feeds, { url: state.addRSSForm.value }];
                             state.addRSSForm.status = 'successful';
                             state.addRSSForm.value = '';

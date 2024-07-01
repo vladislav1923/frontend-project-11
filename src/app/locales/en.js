@@ -12,6 +12,8 @@ export default {
             example: 'Example: https://lorem-rss.hexlet.app/feed',
             urlError: 'Invalid URL',
             duplicateFeedError: 'RSS already exists',
+            fetchingError: 'An unexpected error occurred while fetching posts',
+            parsingError: 'Resource doesn\'t includes valid RSS',
             successMessage: 'RSS has been uploaded successfully',
         }
     },

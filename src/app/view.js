@@ -20,8 +20,6 @@ class View {
 
         this.addRSSInput.focus();
         this.controller.setAddRSSFormHandlers(state);
-
-        console.log(this.addRSSMessage)
     }
 
     async renderTexts(i18n) {
