@@ -1,10 +1,10 @@
 import onChange from "on-change";
 import View from "./view";
 import i18n from 'i18next';
+import { setIntervalAsync } from 'set-interval-async';
 import resources from './locales';
 import { urlValidator, duplicateFeedValidator } from "./validators";
-import { fetchPosts, parseXML, parseRSS } from "./services";
-
+import { fetchPosts, parseXML, parseRSS, extractNewPosts } from "./services";
 
 const state = {
     lng: 'ru',
@@ -71,4 +71,20 @@ export default async function() {
     view.init();
     view.initAddRSSForm(onChange(state, changeHandler));
     await view.renderTexts(i18nextInstance);
+
+    setIntervalAsync(async () => {
+        const promises = state.feeds.map(async (feed) => {
+            return fetchPosts(feed.url)
+                .then(async (response) => parseXML(response.data.contents))
+                .then(async (elements) => {
+                    const parsed = parseRSS(elements);
+                    const newPosts = extractNewPosts(state.posts, parsed.posts);
+                    if (newPosts.length) {
+                        state.posts = [...newPosts, ...state.posts];
+                        await view.renderFeeds(state, i18nextInstance);
+                    }
+                });
+        });
+        await Promise.all(promises);
+    }, 5000);
 }
