@@ -29,10 +29,14 @@ export const getPostsHTML = async (posts, i18n) => {
         anchor.setAttribute('href', post.link);
         anchor.setAttribute('target', '_blank');
         anchor.setAttribute('rel', 'noopener noreferrer');
+        anchor.setAttribute('id', post.id);
+        anchor.setAttribute('role', 'post-anchor');
         anchor.textContent = post.title;
         const button = document.createElement('button');
         button.classList.add('btn', 'btn-outline-primary', 'btn-sm');
         button.setAttribute('type', 'button');
+        button.setAttribute('data-post-id', post.id);
+        button.setAttribute('role', 'post-button');
         button.textContent = btnText;
         item.replaceChildren(anchor, button);
         return item;
@@ -64,4 +68,10 @@ export const getFeedsHTML = async (feeds, i18n) => {
     const card = getCard(title, items);
     feedsContainer.append(card);
     return feedsContainer;
+}
+
+export const getModalBGHTML = () => {
+    const background = document.createElement('div');
+    background.classList.add('modal-backdrop', 'fade', 'show');
+    return background;
 }

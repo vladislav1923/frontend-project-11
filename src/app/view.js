@@ -1,5 +1,5 @@
 import Controller from "./controller";
-import { getFeedsHTML, getPostsHTML } from './services';
+import {getFeedsHTML, getModalBGHTML, getModalHTML, getPostsHTML} from './services';
 
 export const ADD_RSS_SECTION_ID = 'add-rss-section';
 export const ADD_RSS_FORM_ID = 'add-rss-form';
@@ -7,6 +7,7 @@ export const ADD_RSS_INPUT_ID = 'add-rss-input';
 export const ADD_RSS_MESSAGE_ID = 'add-rss-message';
 export const ADD_RSS_EXAMPLE_ID = 'add-rss-example';
 export const FEEDS_SECTION_ID = 'feeds-section';
+export const MODAL_ID = 'modal';
 
 class View {
     init() {
@@ -23,6 +24,15 @@ class View {
 
         this.addRSSInput.focus();
         this.controller.setAddRSSFormHandlers(state);
+    }
+
+    initPosts(state) {
+        this.controller.setPostsHandlers(state);
+    }
+
+    initModal(state) {
+        this.modal = document.getElementById(MODAL_ID);
+        this.controller.setModalHandlers(state);
     }
 
     async renderTexts(i18n) {
@@ -64,6 +74,36 @@ class View {
             await getFeedsHTML(state.feeds, i18n),
         )
         this.feedsSection.append(row);
+    }
+
+    markPostsAsRead(posts) {
+        posts.forEach((id) => {
+            const post = document.getElementById(id);
+            post.classList.remove('fw-bold');
+            post.classList.add('fw-normal', 'link-secondary');
+        });
+    }
+
+    async openModal(post, i18n) {
+        document.body.classList.add('d-flex', 'flex-column', 'min-vh-100', 'modal-open');
+        this.modal.style.display = 'block';
+        this.modal.querySelector('.modal-title').textContent = post.title;
+        this.modal.querySelector('.modal-body').textContent = post.desc;
+        this.modal.querySelector('.full-article').textContent = i18n.t('modal.openBtnText');
+        this.modal.querySelector('.full-article').setAttribute('href', post.link);
+        this.modal.querySelector('.btn-secondary').textContent = i18n.t('modal.closeBtnText');
+        this.modal.classList.add('show');
+        this.modalBG = await getModalBGHTML();
+        document.body.append(this.modalBG);
+        document.body.style.overflow = 'hidden';
+    }
+
+    closeModal() {
+        document.body.classList.remove('d-flex', 'flex-column', 'min-vh-100', 'modal-open');
+        this.modal.style.display = 'none';
+        this.modal.classList.add('show');
+        this.modalBG.remove();
+        document.body.style.overflow = 'auto';
     }
 }
 

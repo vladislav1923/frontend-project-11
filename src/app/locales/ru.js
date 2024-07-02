@@ -20,6 +20,10 @@ export default {
             feedsTitle: 'Фиды',
             postsTitle: 'Посты',
             postBtnText: 'Просмотр',
+        },
+        modal: {
+            closeBtnText: 'Закрыть',
+            openBtnText: 'Читать полностью',
         }
     },
 };

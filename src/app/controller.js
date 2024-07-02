@@ -12,6 +12,28 @@ class Controller {
             state.addRSSForm.status = 'submitted';
         })
     }
+
+    setPostsHandlers(state) {
+        this.view.feedsSection.addEventListener('click', (event) => {
+            if (event.target.role === 'post-button') {
+                state.readPostsIds = [...state.readPostsIds, event.target.dataset.postId];
+                state.modal.open = true;
+                state.modal.postId = event.target.dataset.postId;
+            }
+            if (event.target.role === 'post-anchor') {
+                state.readPostsIds = [...state.readPostsIds, event.target.id];
+            }
+        });
+    }
+
+    setModalHandlers(state) {
+        this.view.modal.addEventListener('click', (event) => {
+            if (event.target.tagName === 'BUTTON') {
+                state.modal.open = false;
+                state.modal.postId = null;
+            }
+        });
+    }
 }
 
 export default Controller;

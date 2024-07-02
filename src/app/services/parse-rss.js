@@ -4,7 +4,7 @@ export default function parseRss(dom) {
     const feedId = v4();
     const result = {
         feed: {
-            feedId,
+            id: feedId,
             title: dom.querySelector('title').textContent,
             desc: dom.querySelector('description').textContent,
         },
@@ -13,6 +13,7 @@ export default function parseRss(dom) {
 
     result.posts = Array.from(dom.querySelectorAll('item')).map((item) => {
         return {
+            id: v4(),
             feedId,
             title: item.querySelector('title').textContent,
             desc: item.querySelector('description').textContent,

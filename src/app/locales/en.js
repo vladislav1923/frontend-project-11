@@ -20,6 +20,10 @@ export default {
             feedsTitle: 'Feeds',
             postsTitle: 'Posts',
             postBtnText: 'Browse',
+        },
+        modal: {
+            closeBtnText: 'Close',
+            openBtnText: 'Read more',
         }
     },
 };
