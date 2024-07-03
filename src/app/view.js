@@ -49,19 +49,19 @@ class View {
   setAddRSSFormMessage(state, message) {
     this.addRSSMessage.textContent = message;
     switch (state.addRSSForm.status) {
-    case 'failed':
-      this.addRSSMessage.classList.add('text-danger');
-      this.addRSSInput.classList.add('is-invalid');
-      break;
-    case 'successful':
-      this.addRSSForm.reset();
-      this.addRSSInput.focus();
-      this.addRSSMessage.classList.remove('text-danger');
-      this.addRSSMessage.classList.add('text-success');
-      this.addRSSInput.classList.remove('is-invalid');
-      break;
-    default:
-      break;
+      case 'failed':
+        this.addRSSMessage.classList.add('text-danger');
+        this.addRSSInput.classList.add('is-invalid');
+        break;
+      case 'successful':
+        this.addRSSForm.reset();
+        this.addRSSInput.focus();
+        this.addRSSMessage.classList.remove('text-danger');
+        this.addRSSMessage.classList.add('text-success');
+        this.addRSSInput.classList.remove('is-invalid');
+        break;
+      default:
+        break;
     }
   }
 

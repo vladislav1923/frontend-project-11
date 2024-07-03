@@ -10,13 +10,10 @@ export default [
   pluginJs.configs.recommended,
   {
     rules: {
-      indent: ['error', 2],
       quotes: ['error', 'single'], // Enforce single quotes
-      'object-curly-newline': ['error', { multiline: true, consistent: true }], // Enforce consistent line breaks inside braces
       'comma-dangle': ['error', 'always-multiline'], // Enforce trailing commas for multiline
       semi: ['error', 'always'], // Enforce semicolons
       'func-names': ['warn', 'always'], // Enforce named functions
-      'space-before-function-paren': ['error', 'never'], // Disallow space before function parenthesis
       'no-shadow': ['error'], // Disallow variable shadowing
       'arrow-body-style': ['error', 'as-needed'], // Enforce consistent arrow function bodies
       'no-async-promise-executor': ['error'], // Disallow async promise executors

@@ -4,7 +4,12 @@ import { setIntervalAsync } from 'set-interval-async';
 import resources from './locales';
 import View from './view';
 import { urlValidator, duplicateFeedValidator } from './validators';
-import { fetchPosts, parseXML, parseRSS, extractNewPosts } from './services';
+import {
+  fetchPosts,
+  parseXML,
+  parseRSS,
+  extractNewPosts,
+} from './services';
 
 const state = {
   lng: 'ru',
@@ -24,70 +29,67 @@ const state = {
 export default async function model() {
   const view = new View();
   const i18n = i18nLib.createInstance();
-  await i18n.init({
-    lng: state.lng,
-    resources,
-  });
+  await i18n.init({ lng: state.lng, resources });
 
-  const changeHandler = async(path, value) => {
+  const changeHandler = async (path, value) => {
     switch (path) {
-    case 'addRSSForm.status': {
-      if (value === 'submitted') {
-        Promise.all([
-          urlValidator(
-            state.addRSSForm.value,
-            await i18n.t('addRSSForm.urlError'),
-          ),
-          duplicateFeedValidator(
-            state.feeds,
-            state.addRSSForm.value,
-            await i18n.t('addRSSForm.duplicateFeedError'),
-          ),
-        ])
-          .then(async() => fetchPosts(
-            state.addRSSForm.value,
-            await i18n.t('addRSSForm.fetchingError'),
-          ))
-          .then(async(response) => parseXML(
-            response.data.contents,
-            await i18n.t('addRSSForm.parsingError'),
-          ))
-          .then(async(elements) => {
-            const parsed = parseRSS(elements);
-            state.feeds = [...state.feeds, { ...parsed.feed, url: state.addRSSForm.value }];
-            state.posts = [...state.posts, ...parsed.posts];
-            state.addRSSForm.status = 'successful';
-            state.addRSSForm.value = '';
-            view.setAddRSSFormMessage(
-              state,
-              await i18n.t('addRSSForm.successMessage'),
-            );
-            await view.renderFeeds(state, i18n);
-          })
-          .catch((message) => {
-            console.log('ERROR DURING ADDING RSS FEED', message);
-            state.addRSSForm.status = 'failed';
-            view.setAddRSSFormMessage(state, message);
-          });
+      case 'addRSSForm.status': {
+        if (value === 'submitted') {
+          Promise.all([
+            urlValidator(
+              state.addRSSForm.value,
+              await i18n.t('addRSSForm.urlError'),
+            ),
+            duplicateFeedValidator(
+              state.feeds,
+              state.addRSSForm.value,
+              await i18n.t('addRSSForm.duplicateFeedError'),
+            ),
+          ])
+            .then(async () => fetchPosts(
+              state.addRSSForm.value,
+              await i18n.t('addRSSForm.fetchingError'),
+            ))
+            .then(async (response) => parseXML(
+              response.data.contents,
+              await i18n.t('addRSSForm.parsingError'),
+            ))
+            .then(async (elements) => {
+              const parsed = parseRSS(elements);
+              state.feeds = [...state.feeds, { ...parsed.feed, url: state.addRSSForm.value }];
+              state.posts = [...state.posts, ...parsed.posts];
+              state.addRSSForm.status = 'successful';
+              state.addRSSForm.value = '';
+              view.setAddRSSFormMessage(
+                state,
+                await i18n.t('addRSSForm.successMessage'),
+              );
+              await view.renderFeeds(state, i18n);
+            })
+            .catch((message) => {
+              console.log('ERROR DURING ADDING RSS FEED', message);
+              state.addRSSForm.status = 'failed';
+              view.setAddRSSFormMessage(state, message);
+            });
+        }
+        break;
       }
-      break;
-    }
-    case 'readPostsIds': {
-      view.markPostsAsRead(value);
-      break;
-    }
-    case 'modal.postId': {
-      if (state.modal.open) {
-        const found = state.posts.find((post) => post.id === state.modal.postId);
-        await view.openModal(found, i18n);
-      } else {
-        view.closeModal();
+      case 'readPostsIds': {
+        view.markPostsAsRead(value);
+        break;
       }
-      break;
-    }
-    default:
-      break;
-    }
+      case 'modal.postId': {
+        if (state.modal.open) {
+          const found = state.posts.find((post) => post.id === state.modal.postId);
+          await view.openModal(found, i18n);
+        } else {
+          view.closeModal();
+        }
+        break;
+      }
+      default:
+        break;
+      }
   };
 
   const watchedState = onChange(state, changeHandler);
@@ -98,10 +100,10 @@ export default async function model() {
   view.initModal(watchedState);
   await view.renderTexts(i18n);
 
-  setIntervalAsync(async() => {
-    const promises = state.feeds.map(async(feed) => fetchPosts(feed.url)
-      .then(async(response) => parseXML(response.data.contents))
-      .then(async(elements) => {
+  setIntervalAsync(async () => {
+    const promises = state.feeds.map(async (feed) => fetchPosts(feed.url)
+      .then(async (response) => parseXML(response.data.contents))
+      .then(async (elements) => {
         const parsed = parseRSS(elements);
         const newPosts = extractNewPosts(state.posts, parsed.posts);
         if (newPosts.length) {

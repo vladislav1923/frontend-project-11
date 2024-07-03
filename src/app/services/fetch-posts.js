@@ -1,4 +1,4 @@
-import { get } from './http-client';
+import get from './http-client';
 
 export default function fetchPosts(url, error) {
   return new Promise((res, rej) => {

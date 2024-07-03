@@ -15,7 +15,7 @@ const getCard = (title, items) => {
   return card;
 };
 
-export const getPostsHTML = async(posts, i18n) => {
+export const getPostsHTML = async (posts, i18n) => {
   const title = await i18n.t('feeds.postsTitle');
   const btnText = await i18n.t('feeds.postBtnText');
   const postsContainer = document.createElement('div');
@@ -47,7 +47,7 @@ export const getPostsHTML = async(posts, i18n) => {
   return postsContainer;
 };
 
-export const getFeedsHTML = async(feeds, i18n) => {
+export const getFeedsHTML = async (feeds, i18n) => {
   const title = await i18n.t('feeds.feedsTitle');
   const feedsContainer = document.createElement('div');
   feedsContainer.classList.add('col-md-10', 'col-lg-4', 'mx-auto', 'order-0', 'order-lg-1', 'feeds');
