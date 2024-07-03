@@ -78,7 +78,7 @@ class View {
 
   markPostsAsRead(posts) {
     posts.forEach((id) => {
-      const post = this.feedsSection.querySelector(`#${id}`);
+      const post = document.getElementById(id);
       post.classList.remove('fw-bold');
       post.classList.add('fw-normal', 'link-secondary');
     });
