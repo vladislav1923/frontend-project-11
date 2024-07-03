@@ -65,6 +65,7 @@ export default async function() {
                             await view.renderFeeds(state, i18n);
                         })
                         .catch((message) => {
+                            console.log('ERROR DURING ADDING RSS FEED', message);
                             state.addRSSForm.status = 'failed';
                             view.setAddRSSFormMessage(state, message);
                         })
