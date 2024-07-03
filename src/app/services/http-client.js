@@ -7,5 +7,5 @@ const config = {};
 const client = axios.create(config);
 
 export function get(url) {
-    return client.get(allOriginsWrapper(url));
+  return client.get(allOriginsWrapper(url));
 }

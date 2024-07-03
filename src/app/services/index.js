@@ -5,11 +5,11 @@ import parseXML from './parse-xml';
 import parseRSS from './parse-rss';
 
 export {
-    getFeedsHTML,
-    getModalBGHTML,
-    getPostsHTML,
-    extractNewPosts,
-    fetchPosts,
-    parseRSS,
-    parseXML,
+  getFeedsHTML,
+  getModalBGHTML,
+  getPostsHTML,
+  extractNewPosts,
+  fetchPosts,
+  parseRSS,
+  parseXML,
 }
