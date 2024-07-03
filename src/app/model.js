@@ -1,8 +1,8 @@
 import onChange from 'on-change';
-import View from './view';
 import i18nLib from 'i18next';
 import { setIntervalAsync } from 'set-interval-async';
 import resources from './locales';
+import View from './view';
 import { urlValidator, duplicateFeedValidator } from './validators';
 import { fetchPosts, parseXML, parseRSS, extractNewPosts } from './services';
 
@@ -21,7 +21,7 @@ const state = {
   },
 };
 
-export default async function () {
+export default async function model() {
   const view = new View();
   const i18n = i18nLib.createInstance();
   await i18n.init({
@@ -29,7 +29,7 @@ export default async function () {
     resources,
   });
 
-  const changeHandler = async (path, value) => {
+  const changeHandler = async(path, value) => {
     switch (path) {
     case 'addRSSForm.status': {
       if (value === 'submitted') {
@@ -44,15 +44,15 @@ export default async function () {
             await i18n.t('addRSSForm.duplicateFeedError'),
           ),
         ])
-          .then(async () => fetchPosts(
+          .then(async() => fetchPosts(
             state.addRSSForm.value,
             await i18n.t('addRSSForm.fetchingError'),
           ))
-          .then(async (response) => parseXML(
+          .then(async(response) => parseXML(
             response.data.contents,
             await i18n.t('addRSSForm.parsingError'),
           ))
-          .then(async (elements) => {
+          .then(async(elements) => {
             const parsed = parseRSS(elements);
             state.feeds = [...state.feeds, { ...parsed.feed, url: state.addRSSForm.value }];
             state.posts = [...state.posts, ...parsed.posts];
@@ -78,8 +78,8 @@ export default async function () {
     }
     case 'modal.postId': {
       if (state.modal.open) {
-        const post = state.posts.find((post) => post.id === state.modal.postId);
-        await view.openModal(post, i18n);
+        const found = state.posts.find((post) => post.id === state.modal.postId);
+        await view.openModal(found, i18n);
       } else {
         view.closeModal();
       }
@@ -98,10 +98,10 @@ export default async function () {
   view.initModal(watchedState);
   await view.renderTexts(i18n);
 
-  setIntervalAsync(async () => {
-    const promises = state.feeds.map(async (feed) => fetchPosts(feed.url)
-      .then(async (response) => parseXML(response.data.contents))
-      .then(async (elements) => {
+  setIntervalAsync(async() => {
+    const promises = state.feeds.map(async(feed) => fetchPosts(feed.url)
+      .then(async(response) => parseXML(response.data.contents))
+      .then(async(elements) => {
         const parsed = parseRSS(elements);
         const newPosts = extractNewPosts(state.posts, parsed.posts);
         if (newPosts.length) {

@@ -1,6 +1,6 @@
 import { v4 } from 'uuid';
 
-export default function parseRss (dom) {
+export default function parseRss(dom) {
   const feedId = v4();
   const result = {
     feed: {

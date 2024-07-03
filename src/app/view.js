@@ -10,12 +10,12 @@ export const FEEDS_SECTION_ID = 'feeds-section';
 export const MODAL_ID = 'modal';
 
 class View {
-  init () {
+  init() {
     this.controller = new Controller();
     this.controller.init(this);
   }
 
-  initAddRSSForm (state) {
+  initAddRSSForm(state) {
     this.addRSSSection = document.getElementById(ADD_RSS_SECTION_ID);
     this.addRSSForm = document.getElementById(ADD_RSS_FORM_ID);
     this.addRSSInput = document.getElementById(ADD_RSS_INPUT_ID);
@@ -26,16 +26,16 @@ class View {
     this.controller.setAddRSSFormHandlers(state);
   }
 
-  initPosts (state) {
+  initPosts(state) {
     this.controller.setPostsHandlers(state);
   }
 
-  initModal (state) {
+  initModal(state) {
     this.modal = document.getElementById(MODAL_ID);
     this.controller.setModalHandlers(state);
   }
 
-  async renderTexts (i18n) {
+  async renderTexts(i18n) {
     document.title = await i18n.t('global.title');
 
     this.addRSSSection.querySelector('h1').textContent = await i18n.t('addRSSForm.title');
@@ -46,7 +46,7 @@ class View {
     this.addRSSSection.querySelector(`#${ADD_RSS_EXAMPLE_ID}`).textContent = await i18n.t('addRSSForm.example');
   }
 
-  setAddRSSFormMessage (state, message) {
+  setAddRSSFormMessage(state, message) {
     this.addRSSMessage.textContent = message;
     switch (state.addRSSForm.status) {
     case 'failed':
@@ -65,7 +65,7 @@ class View {
     }
   }
 
-  async renderFeeds (state, i18n) {
+  async renderFeeds(state, i18n) {
     this.feedsSection.innerHTML = '';
     const row = document.createElement('div');
     row.classList.add('row');
@@ -76,7 +76,7 @@ class View {
     this.feedsSection.append(row);
   }
 
-  markPostsAsRead (posts) {
+  markPostsAsRead(posts) {
     posts.forEach((id) => {
       const post = this.feedsSection.querySelector(`#${id}`);
       post.classList.remove('fw-bold');
@@ -84,7 +84,7 @@ class View {
     });
   }
 
-  async openModal (post, i18n) {
+  async openModal(post, i18n) {
     document.body.classList.add('d-flex', 'flex-column', 'min-vh-100', 'modal-open');
     this.modal.style.display = 'block';
     this.modal.querySelector('.modal-title').textContent = post.title;
@@ -98,7 +98,7 @@ class View {
     document.body.style.overflow = 'hidden';
   }
 
-  closeModal () {
+  closeModal() {
     document.body.classList.remove('d-flex', 'flex-column', 'min-vh-100', 'modal-open');
     this.modal.style.display = 'none';
     this.modal.classList.add('show');
