@@ -78,9 +78,9 @@ class View {
 
   markPostsAsRead(posts) {
     posts.forEach((id) => {
-      const post = document.getElementById(id);
-      post.classList.remove('fw-bold');
-      post.classList.add('fw-normal', 'link-secondary');
+      this.post = document.getElementById(id);
+      this.post.classList.remove('fw-bold');
+      this.post.classList.add('fw-normal', 'link-secondary');
     });
   }
 

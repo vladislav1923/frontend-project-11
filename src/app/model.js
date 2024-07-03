@@ -89,7 +89,7 @@ export default async function model() {
       }
       default:
         break;
-      }
+    }
   };
 
   const watchedState = onChange(state, changeHandler);
