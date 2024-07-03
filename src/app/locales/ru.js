@@ -1,7 +1,7 @@
 export default {
   translation: {
     global: {
-      title: 'RSS агрегатор'
+      title: 'RSS агрегатор',
     },
     addRSSForm: {
       title: 'RSS агрегатор',
@@ -24,6 +24,6 @@ export default {
     modal: {
       closeBtnText: 'Закрыть',
       openBtnText: 'Читать полностью',
-    }
+    },
   },
 };

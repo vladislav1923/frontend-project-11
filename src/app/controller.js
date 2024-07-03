@@ -1,19 +1,19 @@
 class Controller {
-  init(view) {
+  init (view) {
     this.view = view;
   }
 
-  setAddRSSFormHandlers(state) {
+  setAddRSSFormHandlers (state) {
     this.view.addRSSInput.addEventListener('input', (event) => {
       state.addRSSForm.value = event.target.value;
     });
     this.view.addRSSForm.addEventListener('submit', (event) => {
       event.preventDefault();
       state.addRSSForm.status = 'submitted';
-    })
+    });
   }
 
-  setPostsHandlers(state) {
+  setPostsHandlers (state) {
     this.view.feedsSection.addEventListener('click', (event) => {
       if (event.target.role === 'post-button') {
         state.readPostsIds = [...state.readPostsIds, event.target.dataset.postId];
@@ -26,7 +26,7 @@ class Controller {
     });
   }
 
-  setModalHandlers(state) {
+  setModalHandlers (state) {
     this.view.modal.addEventListener('click', (event) => {
       if (event.target.tagName === 'BUTTON') {
         state.modal.open = false;

@@ -1,6 +1,6 @@
-import { get } from "./http-client";
+import { get } from './http-client';
 
-export default function fetchPosts(url, error) {
+export default function fetchPosts (url, error) {
   return new Promise(async (res, rej) => {
     try {
       const response = await get(url);

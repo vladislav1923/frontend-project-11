@@ -1,10 +1,10 @@
-import onChange from "on-change";
-import View from "./view";
+import onChange from 'on-change';
+import View from './view';
 import i18nLib from 'i18next';
 import { setIntervalAsync } from 'set-interval-async';
 import resources from './locales';
-import { urlValidator, duplicateFeedValidator } from "./validators";
-import { fetchPosts, parseXML, parseRSS, extractNewPosts } from "./services";
+import { urlValidator, duplicateFeedValidator } from './validators';
+import { fetchPosts, parseXML, parseRSS, extractNewPosts } from './services';
 
 const state = {
   lng: 'ru',
@@ -17,11 +17,11 @@ const state = {
   },
   modal: {
     open: false,
-    postId: null
-  }
-}
+    postId: null,
+  },
+};
 
-export default async function() {
+export default async function () {
   const view = new View();
   const i18n = i18nLib.createInstance();
   await i18n.init({
@@ -42,15 +42,15 @@ export default async function() {
             state.feeds,
             state.addRSSForm.value,
             await i18n.t('addRSSForm.duplicateFeedError'),
-          )
+          ),
         ])
           .then(async () => fetchPosts(
             state.addRSSForm.value,
-            await i18n.t('addRSSForm.fetchingError')
+            await i18n.t('addRSSForm.fetchingError'),
           ))
           .then(async (response) => parseXML(
             response.data.contents,
-            await i18n.t('addRSSForm.parsingError')
+            await i18n.t('addRSSForm.parsingError'),
           ))
           .then(async (elements) => {
             const parsed = parseRSS(elements);
@@ -68,13 +68,13 @@ export default async function() {
             console.log('ERROR DURING ADDING RSS FEED', message);
             state.addRSSForm.status = 'failed';
             view.setAddRSSFormMessage(state, message);
-          })
+          });
       }
       break;
     }
     case 'readPostsIds': {
       view.markPostsAsRead(value);
-      break
+      break;
     }
     case 'modal.postId': {
       if (state.modal.open) {
@@ -88,7 +88,7 @@ export default async function() {
     default:
       break;
     }
-  }
+  };
 
   const watchedState = onChange(state, changeHandler);
 
@@ -99,18 +99,16 @@ export default async function() {
   await view.renderTexts(i18n);
 
   setIntervalAsync(async () => {
-    const promises = state.feeds.map(async (feed) => {
-      return fetchPosts(feed.url)
-        .then(async (response) => parseXML(response.data.contents))
-        .then(async (elements) => {
-          const parsed = parseRSS(elements);
-          const newPosts = extractNewPosts(state.posts, parsed.posts);
-          if (newPosts.length) {
-            state.posts = [...newPosts, ...state.posts];
-            await view.renderFeeds(state, i18n);
-          }
-        });
-    });
+    const promises = state.feeds.map(async (feed) => fetchPosts(feed.url)
+      .then(async (response) => parseXML(response.data.contents))
+      .then(async (elements) => {
+        const parsed = parseRSS(elements);
+        const newPosts = extractNewPosts(state.posts, parsed.posts);
+        if (newPosts.length) {
+          state.posts = [...newPosts, ...state.posts];
+          await view.renderFeeds(state, i18n);
+        }
+      }));
     await Promise.all(promises);
   }, 5000);
 }
