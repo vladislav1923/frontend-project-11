@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const allOriginsWrapper = (url) => `https://allorigins.hexlet.app/get?url=${encodeURIComponent(url)}`
+const allOriginsWrapper = (url) => `https://allorigins.hexlet.app/get?url=${encodeURIComponent(url)}&disableCache=true`
 
 const config = {};
 
